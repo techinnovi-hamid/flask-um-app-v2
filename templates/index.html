@@ -85,7 +85,9 @@
 <body>
 <div class="container">
     <h1>User Management</h1>
-        
+    <p style="text-align:center; color:gray;">
+       Served by container: <strong>{{ hostname }}</strong>
+    </p>   
         {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}

@@ -2,15 +2,15 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 import os
 from datetime import datetime
-
+import socket
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
 
 # ----Database configuration----
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
-    "sqlite:///app.db"
-   # "postgresql://postgres:postgres@db:5432/flaskdb"
+   # "sqlite:///app.db"
+    "postgresql://postgres:postgres@db:5432/flaskdb"
 )
 
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
@@ -41,7 +41,8 @@ def index():
         return redirect(url_for("index"))
 
     users = User.query.all()
-    return render_template("index.html", users=users)
+    hostname = socket.gethostname()
+    return render_template("index.html", users=users, hostname=hostname)
 
 @app.route("/delete/<int:user_id>", methods=["POST"])
 def delete_user(user_id):
@@ -50,6 +51,10 @@ def delete_user(user_id):
     db.session.commit()
     flash("User deleted ❌", "danger")
     return redirect(url_for("index"))
+
+@app.route("/health")
+def health():
+    return {"status": "healthy"}, 200
 
 # ---- App startup (IMPORTANT PART) ----
 #with app.app_context():
