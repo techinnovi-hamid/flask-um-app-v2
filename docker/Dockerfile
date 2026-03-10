@@ -1,5 +1,5 @@
 # Builder stage
-FROM python:3.12.12-slim AS builder
+FROM python:3.12.12-slim-bookworm AS builder
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ COPY app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ---- Final runtime image ----
-FROM python:3.12.12-slim
+FROM python:3.12.12-slim-bookworm
 
 WORKDIR /app
 
