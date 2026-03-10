@@ -1,21 +1,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
-metadata: 
+metadata:
   name: flask-ingress
   namespace: devops-project
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-
-spec: 
+spec:
   ingressClassName: nginx
-  rules: 
-    - host: flask.local
-      http: 
-        paths: 
+  rules:
+    - http:
+        paths:
           - path: /
             pathType: Prefix
-            backend: 
+            backend:
               service:
                 name: flask-service
-                port: 
+                port:
                   number: 5000
+          - path: /nginx
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-svc
+                port:
+                  number: 80

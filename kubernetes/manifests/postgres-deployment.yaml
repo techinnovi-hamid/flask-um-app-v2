@@ -27,6 +27,6 @@ spec:
 
             - name: POSTGRES_USER
               value: flaskuser
-             
+
             - name: POSTGRES_PASSWORD
               value: flaskpass

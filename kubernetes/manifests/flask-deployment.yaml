@@ -17,7 +17,7 @@ spec:
     spec: 
       containers: 
          - name: flask-ap
-           image: flask-app:v9
+           image: techinnovihamid/flask-app:latest
            imagePullPolicy: IfNotPresent
 
            ports: 
