@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 import socket
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
+app.secret_key = os.environ.get("SECRET_KEY", "dev-default")
 
 # ----Database configuration----
 DATABASE_URL = os.environ.get(
