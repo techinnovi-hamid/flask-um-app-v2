@@ -26,6 +26,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Login to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin    
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -42,5 +45,7 @@ jobs:
           python -c "import app"
 
       - name: Build Docker Image
-        run: |
-          docker build -t flask-devsecops-app -f docker/Dockerfile . 
+        run: run: docker build -t ghcr.io/${{ github.repository }}/flask-devsecops-app:latest -f docker/Dockerfile .
+          
+      - name: Push Docker Image
+        run: docker push ghcr.io/${{ github.repository }}/flask-devsecops-app:latest    
