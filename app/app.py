@@ -12,7 +12,7 @@ app.secret_key = os.environ.get("SECRET_KEY", "dev-default")
 #    "DATABASE_URL",
 #    "sqlite:///ci.db"
    # "postgresql://postgres:postgres@db:5432/flaskdb"
-)
+#)
 #=======
 #DATABASE_URL = os.environ.get(
 #    "DATABASE_URL",
