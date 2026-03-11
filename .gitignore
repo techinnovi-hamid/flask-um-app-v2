@@ -23,8 +23,9 @@ instance/
 
 #env variable
 .env
+venv/
 .env.*
-
+.envrc
 
 node_modules/
 
