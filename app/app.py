@@ -27,7 +27,7 @@ else:
         "DATABASE_URL",
         "postgresql://postgres:postgres@db:5432/flaskdb"
     )
->>>>>>> fcf0645 (TEST_SUITE_v2 add pytest tests and testing config)
+
 
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
