@@ -7,11 +7,27 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-default")
 
 # ----Database configuration----
+<<<<<<< HEAD
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
     "sqlite:///ci.db"
    # "postgresql://postgres:postgres@db:5432/flaskdb"
 )
+=======
+#DATABASE_URL = os.environ.get(
+#    "DATABASE_URL",
+   # "sqlite:///app.db"
+#    "postgresql://postgres:postgres@db:5432/flaskdb"
+#)
+
+if os.environ.get("TESTING"):
+    DATABASE_URL = "sqlite:///:memory:"
+else:
+    DATABASE_URL = os.environ.get(
+        "DATABASE_URL",
+        "postgresql://postgres:postgres@db:5432/flaskdb"
+    )
+>>>>>>> fcf0645 (TEST_SUITE_v2 add pytest tests and testing config)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -61,15 +77,15 @@ def health():
  #   db.create_all()
 
 # ---- Local dev only ----
-#if __name__ == "__main__":
- #   with app.app_context():
-  #      db.create_all()
-   # app.run(host="0.0.0.0", port=5000)
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+    app.run(host="0.0.0.0", port=5000)
 
 # ---- Ensure DB tables exist (Docker / Gunicorn safe) ----
-with app.app_context():
-    db.create_all()
+#with app.app_context():
+#    db.create_all()
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)   
+#if __name__ == "__main__":
+#    app.run(host="0.0.0.0", port=5000)   
     
