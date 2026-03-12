@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata: 
-  name: postgres-svc
-  namespace: devops-project
+  name: db
+  namespace: flask-app
 
 spec: 
   clusterIP: None

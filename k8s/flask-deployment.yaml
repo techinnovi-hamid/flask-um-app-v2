@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: flask-app 
-  namespace: devops-project
+  name: flask-deployment
+  namespace: flask-app
 
 spec: 
   replicas: 2
@@ -16,13 +16,13 @@ spec:
         app: flask-app
     spec: 
       containers: 
-         - name: flask-ap
-           image: techinnovihamid/flask-app:latest
-           imagePullPolicy: IfNotPresent
+         - name: flask-container
+           image: techinnovihamid/flask-um-app:latest
+             #           imagePullPolicy: IfNotPresent
 
            ports: 
              - containerPort: 5000
            
            env: 
              - name: DATABASE_URL
-               value: postgresql://flaskuser:flaskpass@postgres:5432/flaskdb
+               value: postgresql://flaskuser:flaskpass@db:5432/flaskdb

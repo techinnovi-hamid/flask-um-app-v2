@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: flask-db-init
+  namespace: flask-app
+
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+
+      containers:
+      - name: db-init
+        image: techinnovihamid/flask-um-app:latest
+
+        env:
+        - name: DATABASE_URL
+          value: postgresql://flaskuser:flaskpass@db:5432/flaskdb
+
+        command: ["python"]
+
+        args:
+        - -c
+        - |
+          from app import app, db
+          with app.app_context():
+              db.create_all()
+              print("Tables created")
+
+  backoffLimit: 3

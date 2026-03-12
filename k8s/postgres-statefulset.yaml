@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata: 
   name: postgres
-  namespace: devops-project
+  namespace: flask-app
 
 spec: 
-  serviceName: postgres-svc
+  serviceName: db
   replicas: 1
   selector: 
     matchLabels: 
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:18
+          image: postgres:15
           ports: 
             - containerPort: 5432
            
