@@ -10,7 +10,7 @@ on:
       - develop
 
 jobs:
-  test-build-push:
+  devsecops:
 
     runs-on: ubuntu-latest
 
@@ -18,6 +18,9 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Run Gitleak Scan
+        uses: gitleaks/gitleaks-action@v2
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -42,6 +45,14 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/flask-um-app:latest -f docker/Dockerfile .
+
+      - name: Run Trivy Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ secrets.DOCKER_USERNAME }}/flask-um-app:latest
+          format: table
+          exit-code: 1
+          severty: CRITICAL,HIGH  
 
       - name: Push Docker image
         run: |
