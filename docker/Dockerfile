@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install --upgrade pip setuptools wheel
 
-COPY requirements.txt .
+COPY app/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -32,7 +32,7 @@ COPY --from=builder /usr/local/lib/python3.12/site-packages \
                    /usr/local/lib/python3.12/site-packages
 COPY --from=builder /usr/local/bin /usr/local/bin
 
-COPY . .
+COPY app/ .
 
 RUN chown -R appuser:appuser /app
 
