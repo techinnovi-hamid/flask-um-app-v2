@@ -51,8 +51,8 @@ jobs:
         with:
           image-ref: ${{ secrets.DOCKER_USERNAME }}/flask-um-app:latest
           format: table
-          exit-code: 0
-          severty: CRITICAL,HIGH  
+          exit-code: 1
+          severity: CRITICAL  
 
       - name: Push Docker image
         run: |
