@@ -12,7 +12,7 @@ jobs:
     steps: 
 
       - name: Checkout Code
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Setup Kubectl
         uses: azure/setup-kubectl@v4
@@ -24,8 +24,7 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/namespace.yaml
           kubectl apply -f k8s/
-          kubectl rollout restart deployment flask-deployment -n flask-app
+          kubectl rollout status deployment/flask-deployment -n flask-app
 
            
