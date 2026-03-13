@@ -7,7 +7,7 @@ on:
 
 jobs: 
   deploy: 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
   
     steps: 
 
@@ -24,7 +24,7 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/
+         i kubectl apply -f k8s/
 
           kubectl set image deployment/flask-deployment \
           flask-container=techinnovihamid/flask-um-app:${{ github.sha }} \
