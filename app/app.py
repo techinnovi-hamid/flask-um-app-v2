@@ -3,7 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from datetime import datetime
 import socket
+from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
+
 app = Flask(__name__)
+REQUEST_COUNT = Counter(
+    "flask_app_requests_total",
+    "Total HTTP Requests",
+    ["method", "endpoint"]
+)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-default")
 
 # ----Database configuration----
@@ -56,6 +63,7 @@ def index():
 
         return redirect(url_for("index"))
 
+    REQUEST_COUNT.labels(method="GET", endpoint="/").inc()
     users = User.query.all()
     hostname = socket.gethostname()
     return render_template("index.html", users=users, hostname=hostname)
@@ -67,6 +75,10 @@ def delete_user(user_id):
     db.session.commit()
     flash("User deleted ❌", "danger")
     return redirect(url_for("index"))
+
+@app.route("/metrics")
+def metrics():
+    return generate_latest(), 200, {"Content-Type": CONTENT_TYPE_LATEST}
 
 @app.route("/health")
 def health():
