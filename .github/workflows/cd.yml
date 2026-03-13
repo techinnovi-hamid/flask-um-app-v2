@@ -25,6 +25,11 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f k8s/
+
+          kubectl set image deployment/flask-deployment \
+          flask-container=techinnovihamid/flask-um-app:${{ github.sha }} \
+          -n flask-app
+
           kubectl rollout status deployment/flask-deployment -n flask-app
 
            
