@@ -25,4 +25,4 @@ spec:
            
            env: 
              - name: DATABASE_URL
-               value: postgresql://flaskuser:flaskpass@db:5432/flaskdb
+               value: postgresql://flaskuser:flaskpass@postgres-0.db:5432/flaskdb

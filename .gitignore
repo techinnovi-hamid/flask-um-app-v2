@@ -42,3 +42,23 @@ terraform.tfstate.*
 
 *.pem
 *.key
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+terraform/aws/
+terraform/awscliv2.zip
+override.tf
+override.tf.json
+
+# Terraform lock
+.terraform.lock.hcl
+
+# variable files
+*.tfvars
+
+# binaries
+*.zip

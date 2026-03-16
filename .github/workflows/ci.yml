@@ -49,7 +49,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/flask-um-app:${{ github.sha }} -f docker/Dockerfile .
+          docker build \
+          -t ${{ secrets.DOCKER_USERNAME }}/flask-um-app:${{ github.sha }} \
+          -t ${{ secrets.DOCKER_USERNAME }}/flask-um-app:latest \
+          -f docker/Dockerfile .
 
       - name: Run Trivy Scan
         uses: aquasecurity/trivy-action@master
@@ -62,3 +65,4 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/flask-um-app:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/flask-um-app:latest

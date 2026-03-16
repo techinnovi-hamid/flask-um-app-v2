@@ -1,0 +1,17 @@
+alertmanager:
+  enabled: false
+
+kubeStateMetrics:
+  enabled: false
+
+prometheus-node-exporter:
+  enabled: false
+
+server:
+  resources:
+    requests:
+      memory: 200Mi
+      cpu: 100m
+    limits:
+      memory: 400Mi
+      cpu: 200m
