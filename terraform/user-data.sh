@@ -40,6 +40,10 @@ cd flask-um-app-v2
 # Wait for Kubernetes API
 sleep 30
 
+kubectl create namespace flask-app --dry-run=client -o yaml | kubectl apply -f -
+
+kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
+
 kubectl apply -f k8s/
 EOF
 
