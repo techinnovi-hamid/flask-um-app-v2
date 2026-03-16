@@ -12,6 +12,7 @@ spec:
       containers:
       - name: db-init
         image: techinnovihamid/flask-um-app:latest
+        imagePullPolicy: Always  
 
         env:
         - name: DATABASE_URL

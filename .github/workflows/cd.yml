@@ -22,8 +22,16 @@ jobs:
           mkdir -p $HOME/.kube
           echo "${{secrets.KUBECONFIG}}" > $HOME/.kube/config
 
+      - name: Ensure monitoring namespace exists
+        run: |
+          kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
+
       - name: Deploy to Kubernetes
         run: |
+          kubectl delete job flask-db-init -n flask-app --ignore-not-found=true
+          
+          sleep 5
+
           kubectl apply -f k8s/
 
           kubectl set image deployment/flask-deployment \
